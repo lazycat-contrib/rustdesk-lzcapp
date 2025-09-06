@@ -1,0 +1,52 @@
+params:
+    - id: restrict_access_to_server
+      type: bool
+      name: "🔐must login to acess"
+      description: "Even with this option enabled, users can still register on the Rendez-vous server, but they won't be able to control another user's peer. If someone tries to control a peer without being logged in, they'll receive an error message"
+      default_value: false
+
+    - id: key_priv
+      type: string
+      name: "🔑Private Key"
+      description: "If you need to customize the private key(which will be auto generated), use this option.Note：private key and public key must match in pair."
+      optional: true
+
+    - id: key_pub
+      type: string
+      name: "🔑Public Key"
+      description: "if you need to customize the public key(which will be auto generated), use this option.Note：private key and public key must match in pair."
+      optional: true
+
+    - id: server_title
+      type: string
+      name: "🌐Server Title"
+      description: "Set the title of the server."
+      default_value: "RustDesk Server Console"
+
+    - id: server_timezone
+      type: string
+      name: "🌐Server Timezone"
+      description: "Set the timezone of the server."
+      default_value: "Asia/Shanghai"
+
+locales:
+    zh:
+        restrict_access_to_server:
+            name: "🔐必须登录以访问"
+            description: "即使启用此选项，用户仍然可以在服务器上注册，但他们将无法控制其他用户的对等方。如果有人尝试在未登录的情况下控制对等方，他们将收到一条错误消息。"
+
+        key_priv:
+            name: "🔑服务器私钥"
+            description: "如果您需要自定义私钥(这个默认会自动生成)，请使用此选项。注意：私钥和公钥必须成对匹配。"
+
+        key_pub:
+            name: "🔑服务器公钥"
+            description: "如果您需要自定义公钥(这个默认会自动生成)，请使用此选项。注意：私钥和公钥必须成对匹配。"
+
+        server_title:
+            name: "服务器后台标题"
+            description: "设置服务器的标题。"
+
+        server_timezone:
+            name: "🌐服务器时区"
+            description: "设置服务器的时区。"

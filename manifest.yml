@@ -1,0 +1,56 @@
+name: RustDesk Server
+package: community.lazycat.app.rustdesk-server-s6
+version: 0.1.2
+min_os_version: 1.3.8
+description: 全功能的RustDesk服务器，集成API功能。
+homepage: https://github.com/lejianwen/rustdesk-server
+author: lejianwen
+application:
+    subdomain: foxel
+    background_task: true
+    public_path:
+        - /
+
+    upstreams:
+        - location: /
+          backend: http://host.lzcapp:21114
+services:
+    rustdesk-server-s6:
+        container_name: rustdesk-server-s6
+        # lejianwen/rustdesk-server-s6:latest
+        image: registry.lazycat.cloud/czyt/lejianwen/rustdesk-server-s6:895c2605c523bde3
+        network_mode: host
+        environment:
+            - RELAY=rustdesk-server-s6:21117
+            - ENCRYPTED_ONLY=1
+{{if .U.restrict_access_to_server }}
+            - MUST_LOGIN=Y
+{{end}}
+            - TZ={{.U.server_timezone}}
+            - RUSTDESK_API_RUSTDESK_ID_SERVER=rustdesk-server-s6:21116
+            - RUSTDESK_API_RUSTDESK_RELAY_SERVER=rustdesk-server-s6:21117
+            - RUSTDESK_API_RUSTDESK_API_SERVER=http://rustdesk-server-s6:21114
+            - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server-s6#api_jwt_key"}}
+            - RUSTDESK_API_APP_REGISTER=false
+            - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
+            - KEY_PRIV={{.U.key_priv}}
+            - KEY_PUB={{.U.key_pub}}
+
+        binds:
+            - /lzcapp/var/data:/data
+            - /lzcapp/var/db:/app/data
+            - /lzcapp/var/conf:/app/conf/data
+
+locales:
+    zh:
+        name: "RustDesk服务器"
+        description: "全功能的RustDesk服务器，集成API功能。"
+    zh_CN:
+        name: "RustDesk服务器"
+        description: "全功能的RustDesk服务器，集成API功能。"
+    en:
+        name: "RustDesk Server"
+        description: "full function RustDesk server, integrated API function."
+    ja:
+        name: "RustDesk Server"
+        description: "フル機能のRustDeskサーバー、API機能統合済み。"
