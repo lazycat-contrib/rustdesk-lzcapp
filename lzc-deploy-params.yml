@@ -29,6 +29,24 @@ params:
       description: "Set the timezone of the server."
       default_value: "Asia/Shanghai"
 
+    - id: enable_custom_domain
+      type: bool
+      name: "Enable Custom Domain"
+      description: "Whether to enable custom domain,if false,use lazycat provided domain"
+      default_value: false
+
+    - id: custom_relay_domain
+      type: string
+      name: "Custom Relay Domain"
+      description: "Custom relay domain for the application(proxy port 21116、21117)"
+      optional: true
+
+    - id: custom_apiserver_domain
+      type: string
+      name: "Custom API Server Domain"
+      description: "Custom API server domain for the application( with https or http prefix,if there is any port,with port too.this domain proxy port 21114、21118)，if you don't set other domain, just input the same domain as the relay domain"
+      optional: true
+
 locales:
     zh:
         restrict_access_to_server:
@@ -50,3 +68,15 @@ locales:
         server_timezone:
             name: "🌐服务器时区"
             description: "设置服务器的时区。"
+
+        enable_custom_domain:
+            name: "启用自定义域名"
+            description: "是否启用自定义域名，如果为false，则使用懒猫微服提供的域名"
+
+        custom_relay_domain:
+            name: "自定义Relay域名"
+            description: "应用程序的relay自定义域名(转发端口 21116、21117）"
+
+        custom_apiserver_domain:
+            name: "自定义API Server域名"
+            description: "应用程序的自定义API Server域名（带https或http，如果有端口号，带上端口号。该域名转发端口 21114、21118），如果你没单独设置其他域名，输入relay相同的域名即可"

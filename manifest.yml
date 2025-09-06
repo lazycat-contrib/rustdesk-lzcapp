@@ -21,15 +21,23 @@ services:
         image: registry.lazycat.cloud/czyt/lejianwen/rustdesk-server-s6:895c2605c523bde3
         network_mode: host
         environment:
-            - RELAY=rustdesk-server-s6:21117
             - ENCRYPTED_ONLY=1
 {{if .U.restrict_access_to_server }}
             - MUST_LOGIN=Y
 {{end}}
             - TZ={{.U.server_timezone}}
-            - RUSTDESK_API_RUSTDESK_ID_SERVER=rustdesk-server-s6:21116
-            - RUSTDESK_API_RUSTDESK_RELAY_SERVER=rustdesk-server-s6:21117
-            - RUSTDESK_API_RUSTDESK_API_SERVER=http://rustdesk-server-s6:21114
+
+{{if .U.enable_custom_domain}}
+            - RELAY={{.U.custom_relay_domain}}
+            - RUSTDESK_API_RUSTDESK_ID_SERVER={{.U.custom_relay_domain}}
+            - RUSTDESK_API_RUSTDESK_RELAY_SERVER={{.U.custom_relay_domain}}
+            - RUSTDESK_API_RUSTDESK_API_SERVER={{.U.custom_apiserver_domain}}
+{{else}}
+            - RELAY=host.lzcapp:21117
+            - RUSTDESK_API_RUSTDESK_ID_SERVER=host.lzcapp:21116
+            - RUSTDESK_API_RUSTDESK_RELAY_SERVER=host.lzcapp:21117
+            - RUSTDESK_API_RUSTDESK_API_SERVER=https://{{.S.AppDomain}}
+{{end}}
             - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server-s6#api_jwt_key"}}
             - RUSTDESK_API_APP_REGISTER=false
             - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
