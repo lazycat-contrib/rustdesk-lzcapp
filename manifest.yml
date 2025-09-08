@@ -6,7 +6,7 @@ description: 全功能的RustDesk服务器，集成API功能。
 homepage: https://github.com/lejianwen/rustdesk-server
 author: lejianwen
 application:
-    subdomain: foxel
+    subdomain: rustdesk-server-s6
     background_task: true
     public_path:
         - /
