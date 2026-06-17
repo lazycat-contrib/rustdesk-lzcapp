@@ -52,8 +52,8 @@ services:
             - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server#api_jwt_key"}}
             - RUSTDESK_API_APP_REGISTER=false
             - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
-            - RUSTDESK_API_ADMIN_USERNAME={{ printf "%q" .U.admin_username }}
-            - RUSTDESK_API_ADMIN_PASSWORD={{ printf "%q" .U.admin_password }}
+            - RUSTDESK_API_ADMIN_USERNAME={{  .U.admin_username }}
+            - RUSTDESK_API_ADMIN_PASSWORD={{  .U.admin_password }}
             - KEY_PRIV={{.U.key_priv}}
             - KEY_PUB={{.U.key_pub}}
 
