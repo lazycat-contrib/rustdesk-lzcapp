@@ -61,6 +61,12 @@ params:
       description: "Custom API server domain for the application( with https or http prefix,if there is any port,with port too.this domain proxy port 21114、21118)，if you don't set other domain, just input the same domain as the relay domain"
       optional: true
 
+    - id: webclient_ws_host
+      type: string
+      name: "WebClient WebSocket Host"
+      description: "Optional WebClient WebSocket host, such as https://rd.example.com or wss://rd.example.com. When set, WebClient uses <ws-host>/ws/id and <ws-host>/ws/relay. Leave empty to keep direct connections to 21118 and 21119."
+      optional: true
+
 locales:
     zh:
         restrict_access_to_server:
@@ -102,3 +108,7 @@ locales:
         custom_apiserver_domain:
             name: "自定义API Server域名"
             description: "应用程序的自定义API Server域名（带https或http，如果有端口号，带上端口号。该域名转发端口 21114、21118），如果你没单独设置其他域名，输入relay相同的域名即可"
+
+        webclient_ws_host:
+            name: "WebClient WebSocket Host"
+            description: "可选的 WebClient WebSocket Host，例如 https://rd.example.com 或 wss://rd.example.com。设置后 WebClient 固定使用 <ws-host>/ws/id 和 <ws-host>/ws/relay；留空则保持旧逻辑，继续直连 21118 和 21119。"

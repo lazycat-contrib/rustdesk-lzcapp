@@ -28,8 +28,8 @@ application:
 
 services:
     rustdeskserver:
-        # czyt/rustdesk-server-s6:v0.2.7
-        image:  registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:9df9267ef50439db
+        # czyt/rustdesk-server-s6:v0.2.10
+        image:  registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:b57899002ab38d02
         network_mode: host
         environment:
             - ENCRYPTED_ONLY=1
@@ -48,6 +48,9 @@ services:
             - RUSTDESK_API_RUSTDESK_ID_SERVER=host.lzcapp:21116
             - RUSTDESK_API_RUSTDESK_RELAY_SERVER=host.lzcapp:21117
             - RUSTDESK_API_RUSTDESK_API_SERVER=https://{{.S.AppDomain}}
+{{end}}
+{{if .U.webclient_ws_host}}
+            - RUSTDESK_API_RUSTDESK_WS_HOST={{.U.webclient_ws_host}}
 {{end}}
             - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server#api_jwt_key"}}
             - RUSTDESK_API_APP_REGISTER=false
