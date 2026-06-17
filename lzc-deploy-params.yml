@@ -23,6 +23,20 @@ params:
       description: "Set the title of the server."
       default_value: "RustDesk Server Console"
 
+    - id: admin_username
+      type: string
+      name: "Admin Username"
+      description: "Initial administrator username used before the database is created."
+      default_value: "admin"
+      optional: false
+
+    - id: admin_password
+      type: secret
+      name: "Admin Password"
+      description: "Initial administrator password used before the database is created."
+      default_value: "$random(len=20)"
+      optional: false
+
     - id: server_timezone
       type: string
       name: "🌐Server Timezone"
@@ -64,6 +78,14 @@ locales:
         server_title:
             name: "服务器后台标题"
             description: "设置服务器的标题。"
+
+        admin_username:
+            name: "初始化管理员用户名"
+            description: "建库前使用的初始化管理员用户名。"
+
+        admin_password:
+            name: "初始化管理员密码"
+            description: "建库前使用的初始化管理员密码。"
 
         server_timezone:
             name: "🌐服务器时区"
