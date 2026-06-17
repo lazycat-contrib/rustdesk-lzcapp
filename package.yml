@@ -1,0 +1,25 @@
+package: community.lazycat.czyt.rustdesk-server
+version: 0.2.7
+name: RustDesk Server
+description: 使用Rust编写的全功能RustDesk服务器，集成API等实用功能。
+min_os_version: 1.5.0
+homepage: https://github.com/dockers-x/rustdesk-server
+author: czyt
+
+locales:
+  zh:
+    name: "RustDesk服务器"
+    description: "使用Rust编写的全功能RustDesk服务器，集成API等实用功能。"
+  zh_CN:
+    name: "RustDesk服务器"
+    description: "使用Rust编写的全功能RustDesk服务器，集成API等实用功能。"
+  en:
+    name: "RustDesk Server"
+    description: "Full-featured RustDesk server with integrated API functionality."
+  ja:
+    name: "RustDesk Server"
+    description: "フル機能のRustDeskサーバー、API機能統合済み。"
+
+permissions:
+  required:
+    - net.internet
