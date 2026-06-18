@@ -1,5 +1,5 @@
 package: community.lazycat.czyt.rustdesk-server
-version: 0.2.17
+version: 0.2.19
 name: RustDesk +
 description: 使用Rust编写的全功能RustDesk服务器，集成API等实用功能。
 min_os_version: 1.5.0
