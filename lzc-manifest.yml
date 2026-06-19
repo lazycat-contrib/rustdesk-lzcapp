@@ -28,8 +28,8 @@ application:
 
 services:
     rustdeskserver:
-        # czyt/rustdesk-server-s6:v0.2.25
-        image:  registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:b95296bd02367acf
+        # czyt/rustdesk-server-s6:v0.2.27
+        image:  registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:151afb0f288078bd
         network_mode: host
         environment:
             - ENCRYPTED_ONLY=1
