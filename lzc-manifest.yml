@@ -1,66 +1,60 @@
 application:
-    subdomain: rustdesk
-    background_task: true
-    public_path:
-        - /
-
-    upstreams:
-        - location: /
-          backend: http://host.lzcapp:21114
-
-        - location: /ws/id
-          backend: http://host.lzcapp:21118
-          fix_websocket_header: true
-
-        - location: /ws/relay
-          backend: http://host.lzcapp:21119
-          fix_websocket_header: true
-
-    injects:
-        - id: rustdesk-admin-login-autofill
-          when:
-              - /_admin/#/login
-          do:
-              - src: builtin://simple-inject-password
-                params:
-                    user: "{{ .U.admin_username }}"
-                    password: "{{ .U.admin_password }}"
-
+  subdomain: rustdesk
+  background_task: true
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://host.lzcapp:21114
+    - location: /ws/id
+      backend: http://host.lzcapp:21118
+      fix_websocket_header: true
+    - location: /ws/relay
+      backend: http://host.lzcapp:21119
+      fix_websocket_header: true
+  injects:
+    - id: rustdesk-admin-login-autofill
+      when:
+        - /_admin/#/login
+      do:
+        - src: builtin://simple-inject-password
+          params:
+            user: "{{ .U.admin_username }}"
+            password: "{{ .U.admin_password }}"
 services:
-    rustdeskserver:
-        # czyt/rustdesk-server-s6:v0.2.28
-        image: registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:99c9aa1b9df0c7ed
-        network_mode: host
-        environment:
-            - ENCRYPTED_ONLY=1
+  rustdeskserver:
+    # czyt/rustdesk-server-s6:v0.2.28
+    # upstream: docker.io/czyt/rustdesk-server-s6:v0.2.30
+    image: registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:bc9574b2adae4c4c
+    network_mode: host
+    environment:
+      - ENCRYPTED_ONLY=1
 {{if .U.restrict_access_to_server }}
-            - MUST_LOGIN=Y
+      - MUST_LOGIN=Y
 {{end}}
-            - TZ={{.U.server_timezone}}
-
+      - TZ={{.U.server_timezone}}
 {{if .U.enable_custom_domain}}
-            - RELAY={{.U.custom_relay_domain}}
-            - RUSTDESK_API_RUSTDESK_ID_SERVER={{.U.custom_relay_domain}}
-            - RUSTDESK_API_RUSTDESK_RELAY_SERVER={{.U.custom_relay_domain}}
-            - RUSTDESK_API_RUSTDESK_API_SERVER={{.U.custom_apiserver_domain}}
+      - RELAY={{.U.custom_relay_domain}}
+      - RUSTDESK_API_RUSTDESK_ID_SERVER={{.U.custom_relay_domain}}
+      - RUSTDESK_API_RUSTDESK_RELAY_SERVER={{.U.custom_relay_domain}}
+      - RUSTDESK_API_RUSTDESK_API_SERVER={{.U.custom_apiserver_domain}}
 {{else}}
-            - RELAY=host.lzcapp:21117
-            - RUSTDESK_API_RUSTDESK_ID_SERVER=host.lzcapp:21116
-            - RUSTDESK_API_RUSTDESK_RELAY_SERVER=host.lzcapp:21117
-            - RUSTDESK_API_RUSTDESK_API_SERVER=https://{{.S.AppDomain}}
+      - RELAY=host.lzcapp:21117
+      - RUSTDESK_API_RUSTDESK_ID_SERVER=host.lzcapp:21116
+      - RUSTDESK_API_RUSTDESK_RELAY_SERVER=host.lzcapp:21117
+      - RUSTDESK_API_RUSTDESK_API_SERVER=https://{{.S.AppDomain}}
 {{end}}
 {{if .U.webclient_ws_host}}
-            - RUSTDESK_API_RUSTDESK_WS_HOST={{.U.webclient_ws_host}}
+      - RUSTDESK_API_RUSTDESK_WS_HOST={{.U.webclient_ws_host}}
 {{end}}
-            - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server#api_jwt_key"}}
-            - RUSTDESK_API_APP_REGISTER=false
-            - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
-            - RUSTDESK_API_ADMIN_USERNAME={{  .U.admin_username }}
-            - RUSTDESK_API_ADMIN_PASSWORD={{  .U.admin_password }}
-            - KEY_PRIV={{.U.key_priv}}
-            - KEY_PUB={{.U.key_pub}}
-
-        binds:
-            - /lzcapp/var/data:/data
-            - /lzcapp/var/db:/app/data
-            - /lzcapp/var/conf:/app/conf/data
+      - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server#api_jwt_key"}}
+      - RUSTDESK_API_APP_REGISTER=false
+      - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
+      - RUSTDESK_API_ADMIN_USERNAME={{  .U.admin_username }}
+      - RUSTDESK_API_ADMIN_PASSWORD={{  .U.admin_password }}
+      - KEY_PRIV={{.U.key_priv}}
+      - KEY_PUB={{.U.key_pub}}
+    binds:
+      - /lzcapp/var/data:/data
+      - /lzcapp/var/db:/app/data
+      - /lzcapp/var/conf:/app/conf/data
