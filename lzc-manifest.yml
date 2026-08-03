@@ -33,18 +33,15 @@ services:
       - MUST_LOGIN=Y
 {{end}}
       - TZ={{.U.server_timezone}}
-{{if .U.custom_relay_domain}}
-      - RELAY={{.U.custom_relay_domain}}:21117
-{{else}}
-      - RELAY=${LAZYCAT_BOX_DOMAIN}:21117
-{{end}}
 {{if .U.enable_custom_domain}}
+      - RELAY={{.U.custom_relay_domain}}
       - RUSTDESK_API_RUSTDESK_ID_SERVER={{.U.custom_relay_domain}}
       - RUSTDESK_API_RUSTDESK_RELAY_SERVER={{.U.custom_relay_domain}}
       - RUSTDESK_API_RUSTDESK_API_SERVER={{.U.custom_apiserver_domain}}
 {{else}}
-      - RUSTDESK_API_RUSTDESK_ID_SERVER=host.lzcapp:21116
-      - RUSTDESK_API_RUSTDESK_RELAY_SERVER=host.lzcapp:21117
+      - RELAY=${LAZYCAT_BOX_DOMAIN}:21117
+      - RUSTDESK_API_RUSTDESK_ID_SERVER=${LAZYCAT_BOX_DOMAIN}:21116
+      - RUSTDESK_API_RUSTDESK_RELAY_SERVER=${LAZYCAT_BOX_DOMAIN}:21117
       - RUSTDESK_API_RUSTDESK_API_SERVER=https://{{.S.AppDomain}}
 {{end}}
 {{if .U.webclient_ws_host}}
