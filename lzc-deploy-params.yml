@@ -51,8 +51,8 @@ params:
 
     - id: custom_relay_domain
       type: string
-      name: "Custom Relay Domain"
-      description: "Custom relay domain for the application(proxy port 21116、21117)"
+      name: "Custom Relay IP or Domain"
+      description: "Optional Relay server IP address or domain name. Do not include a scheme or port; port 21117 is added automatically. When empty, the LazyCat Box domain is used."
       optional: true
 
     - id: custom_apiserver_domain
@@ -102,8 +102,8 @@ locales:
             description: "是否启用自定义域名，如果为false，则使用懒猫微服提供的域名"
 
         custom_relay_domain:
-            name: "自定义Relay域名"
-            description: "应用程序的relay自定义域名(转发端口 21116、21117）"
+            name: "自定义 Relay IP 或域名"
+            description: "可选的 Relay 服务器 IP 地址或域名，请勿填写协议和端口，系统会自动添加 21117 端口；留空时使用懒猫微服域名。"
 
         custom_apiserver_domain:
             name: "自定义API Server域名"
