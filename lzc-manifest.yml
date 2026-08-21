@@ -24,8 +24,8 @@ application:
 services:
   rustdeskserver:
     # czyt/rustdesk-server-s6:v0.2.28
-    # upstream: docker.io/czyt/rustdesk-server-s6:v0.2.35
-    image: registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:410ef47f354fa437
+    # upstream: docker.io/czyt/rustdesk-server-s6:v0.2.36
+    image: registry.lazycat.cloud/czyt/czyt/rustdesk-server-s6:992d061a5ac6f2e1
     network_mode: host
     environment:
       - ENCRYPTED_ONLY=1
