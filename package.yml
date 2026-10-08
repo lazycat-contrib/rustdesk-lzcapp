@@ -1,4 +1,5 @@
 package: community.lazycat.czyt.rustdesk-server
+license: AGPL-3.0
 version: 0.2.37
 name: RustDesk +
 description: 使用Rust编写的全功能RustDesk服务器，集成API等实用功能。
