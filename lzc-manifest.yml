@@ -21,6 +21,8 @@ application:
           params:
             user: "{{ .U.admin_username }}"
             password: "{{ .U.admin_password }}"
+            retryCount: 1
+            autoSubmit: false
 services:
   rustdeskserver:
     # czyt/rustdesk-server-s6:v0.2.28
