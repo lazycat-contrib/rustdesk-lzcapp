@@ -1,6 +1,7 @@
 application:
   subdomain: rustdesk
   background_task: true
+  oidc_redirect_path: /api/oidc/callback
   public_path:
     - /
   upstreams:
@@ -51,6 +52,11 @@ services:
 {{end}}
       - RUSTDESK_API_JWT_KEY={{stable_secret "rustdesk-server#api_jwt_key"}}
       - RUSTDESK_API_APP_REGISTER=false
+      - RUSTDESK_API_OIDC_NAME=LazyCat
+      - RUSTDESK_API_OIDC_ISSUER=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
+      - RUSTDESK_API_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - RUSTDESK_API_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - RUSTDESK_API_OIDC_REDIRECT_URL=https://{{.S.AppDomain}}/api/oidc/callback
       - RUSTDESK_API_ADMIN_TITLE={{.U.server_title}}
       - RUSTDESK_API_ADMIN_USERNAME={{  .U.admin_username }}
       - RUSTDESK_API_ADMIN_PASSWORD={{  .U.admin_password }}
